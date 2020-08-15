@@ -1,6 +1,9 @@
-/*10.	Add the code to order the query in #9 from highest to lowest average star rating. 
-Which company with more than 5000 reviews across all locations in the dataset has the highest star rating? 
-What is that rating? */
+/*9.	Find the name of each company and its average star rating for all companies that have more than 5000 reviews across all
+locations. How many companies are there with more than 5000 reviews across all locations? 70*/
 
-select company, avg(star_rating) as avg_rat from data_analyst_jobs where review_count >5000 group by data_analyst_jobs.company
-order by avg_rat desc
+SELECT company, ROUND(AVG(star_rating),2) as avg_rat 
+FROM data_analyst_jobs
+WHERE star_rating IS NOT NULL AND company IS NOT NULL
+GROUP BY company, star_rating
+HAVING SUM(review_count) > 5000
+ORDER BY company
